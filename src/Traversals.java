@@ -75,7 +75,34 @@ public class Traversals {
    * @return a list of node values in a top-to-bottom order, or an empty list if the tree is null
    */
   public static <T> List<T> collectLevelOrderValues(TreeNode<T> node) {
-    return null;
+    if(node == null) return new ArrayList<>(); // return empty list 
+
+    List<T> allValues = new ArrayList<T>(); // create allValues list 
+
+    allValues.add(node.value); // add the root node's value first 
+
+    collectLevelOrderValues(node, allValues); // start traversal from root 
+    
+    return allValues; // return list 
+  }
+
+  // helper function 
+  private static <T> void collectLevelOrderValues(TreeNode<T> node, List<T> allValues){
+    if (node == null) return; // if there is no node, stop recursion 
+
+    // if left node exists, add its value
+    if (node.left != null) {
+      allValues.add(node.left.value);
+    }
+
+    // if right node exists, add its value
+    if (node.right != null){
+      allValues.add(node.right.value);
+    }
+
+    // traverse through left subtree then right subtree 
+    collectLevelOrderValues(node.left, allValues);
+    collectLevelOrderValues(node.right, allValues);
   }
 
   /**
